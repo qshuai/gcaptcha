@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -21,43 +20,55 @@ func (c *MainController) Get() {
 
 func (c *MainController) Post() {
 	// your secret key
-	secretKey := "****"
+	secretKey := "**************"
+	// the request url(post)
 	uri := "https://www.google.com/recaptcha/api/siteverify"
+	// post data key:value
 	params := url.Values{
 		"secret":   {secretKey},
-		"response": {c.GetString("g-recaptcha-response", "") + "lsjfaj"},
+		"response": {c.GetString("g-recaptcha-response", "")},
 	}
+
+	// create a http request
 	req, err := http.NewRequest("POST", uri, strings.NewReader(params.Encode()))
+	// return error info if encounter any error
 	if err != nil {
 		c.Data["json"] = err.Error()
-		c.ServeJSON(true)
+		c.ServeJSON()
 		return
 	}
+	// set request header for post request
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
+	// create a http client and emit the request
 	client := &http.Client{}
 	res, err := client.Do(req)
 	if err != nil {
 		c.Data["json"] = err.Error()
-		fmt.Println("hello")
-		c.ServeJSON(true)
+		c.ServeJSON()
 		return
 	}
 
+	// here, res.body is not nil, so close resource when return
 	defer res.Body.Close()
 	content, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		c.Data["json"] = err.Error()
-		fmt.Println("world")
-		c.ServeJSON(true)
+		c.ServeJSON()
 		return
 	}
 
+	// here using gjson package for analyzing the request result
 	if !gjson.Get(string(content), "success").Bool() {
+		// render a error page if failed
 		c.TplName = "error.html"
+		return
 	}
 
+	// so render a success page if validation pass
 	c.TplName = "success.html"
+
+	// validation example:
 
 	// success:
 	// {

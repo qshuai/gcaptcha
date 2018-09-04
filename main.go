@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "test/google-captcha/routers"
+	_ "github.com/qshuai/gcaptcha/routers"
 
 	"github.com/astaxie/beego"
 )

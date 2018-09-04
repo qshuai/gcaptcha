@@ -1,9 +1,8 @@
 package routers
 
 import (
-	"test/google-captcha/controllers"
-
 	"github.com/astaxie/beego"
+	"github.com/qshuai/gcaptcha/controllers"
 )
 
 func init() {
