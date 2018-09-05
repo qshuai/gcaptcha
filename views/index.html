@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>How to Integrate Google “No CAPTCHA reCAPTCHA” on Your Website</title>
+    <title>google captcha</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
 <body>
 
-<form action="" method="post">
+<div class="container">
+    <form action="" method="post">
+        <div class="input-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control">
+        </div>
 
-    <label for="name">Name:</label>
-    <input name="name" required><br />
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control">
+        </div>
+        <br>
 
-    <label for="email">Email:</label>
-    <input name="email" type="email" required><br />
+        <div class="g-recaptcha" data-sitekey="6LclSW4UAAAAADt523A9yIsOis90kjEL5o_a2K-S"></div>
 
-    <div class="g-recaptcha" data-sitekey="6LclSW4UAAAAADt523A9yIsOis90kjEL5o_a2K-S"></div>
+        <br>
+        <input type="submit" class="btn btn-primary" value="Submit" />
 
-    <input type="submit" value="Submit" />
-
-</form>
+    </form>
+</div>
 
 <!--js-->
 <script src='https://www.google.com/recaptcha/api.js'></script>
